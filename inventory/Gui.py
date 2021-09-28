@@ -5,7 +5,7 @@ from tkinter import StringVar
 class Gui:
     # Create window
     window = Tk()
-    window.wm_tittle("Cadastro Cliente")
+    window.wm_title("Cadastro Cliente")
 
     # Data Storage
     txtNome = StringVar()
@@ -33,7 +33,7 @@ class Gui:
     scrollClientes = Scrollbar(window)
 
     #bottons in the interfce
-    btnViewAll = Button(window, tex='Ver Todos')
+    btnViewAll = Button(window, text='Ver Todos')
     btnBuscar = Button(window, text='Buscar')
     btnInserir = Button(window, text='Inserir')
     btnUpdate = Button(window, text='Atualizar Selecionados')
@@ -71,7 +71,7 @@ class Gui:
 
 
     for child in window.winfo_children():
-        widget_class = child.__class__.__nome__
+        widget_class = child.__class__.__name__
         if widget_class == "Button":
             child.grid_configure(sticky='WE', padx=x_pad, pady=y_pad)
         elif widget_class == "Listbox":
@@ -82,4 +82,5 @@ class Gui:
             child.grid_configure(padx=x_pad, pady=y_pad, sticky='N')
 
 
-
+    def run(self):
+        Gui.window.mainloop()
