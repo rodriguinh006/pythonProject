@@ -1,22 +1,21 @@
 import sqlite3 as sql
 
-
 class TransactionObject():
-    database = "clientes.db"
-    conn = None
-    cur = None
-    connected = False
+    database    = "clientes.db"
+    conn        = None
+    cur         = None
+    connected   = False
 
     def connect(self):
-        TransactionObject.conn = sql.connect(TransactionObject.database)
-        TransactionObject.cur = TransactionObject.conn.cursor()
+        TransactionObject.conn      = sql.connect(TransactionObject.database)
+        TransactionObject.cur       = TransactionObject.conn.cursor()
         TransactionObject.connected = True
 
     def disconnect(self):
         TransactionObject.conn.close()
         TransactionObject.connected = False
 
-    def execute(self, sql, parms=None):
+    def execute(self, sql, parms = None):
         if TransactionObject.connected:
             if parms == None:
                 TransactionObject.cur.execute(sql)
@@ -36,6 +35,8 @@ class TransactionObject():
         else:
             return False
 
+
+
 def initDB():
     trans = TransactionObject()
     trans.connect()
@@ -43,42 +44,42 @@ def initDB():
     trans.persist()
     trans.disconnect()
 
-def insert(self, nome, sobrenome, email, cpf):
+def insert(nome, sobrenome, email, cpf):
     trans = TransactionObject()
     trans.connect()
-    trans.execute("INSERT INTO clientes VALUES(NUKK, ?,?,?,?) ", (nome, sobrenome, email, cpf))
+    trans.execute("INSERT INTO clientes VALUES(NULL, ?,?,?,?)", (nome, sobrenome, email, cpf))
     trans.persist()
     trans.disconnect()
 
-def view(self):
-    trans = TransactionObject
+
+def view():
+    trans = TransactionObject()
     trans.connect()
     trans.execute("SELECT * FROM clientes")
     rows = trans.fetchall()
     trans.disconnect()
     return rows
 
-def search(self, nome="", sobrenome="", email="", cpf=""):
-    trans = TransactionObject
+def search(nome="", sobrenome="", email="", cpf=""):
+    trans = TransactionObject()
     trans.connect()
-    trans.execute("SELECT * FROM clientes WHERE nome=? or sobrenome=? or email=? or cpf=?",
-                  (nome, sobrenome, email, cpf))
+    trans.execute("SELECT * FROM clientes WHERE nome=? or sobrenome=? or email=? or cpf=?", (nome,sobrenome,email, cpf))
     rows = trans.fetchall()
     trans.disconnect()
     return rows
 
-def delete(self, id):
-    trans = TransactionObject
+
+def delete(id):
+    trans = TransactionObject()
     trans.connect()
     trans.execute("DELETE FROM clientes WHERE id = ?", (id,))
     trans.persist()
     trans.disconnect()
 
-def update(self, id, nome, sobrenome, email, cpf):
-    trans = TransactionObject
+def update(id, nome, sobrenome, email, cpf):
+    trans = TransactionObject()
     trans.connect()
-    trans.execute("UPDATE clientes SET nome =?, sobrenome=?, email=?, cpf=? WHERE id = ?",
-                  (nome, sobrenome, email, cpf, id))
+    trans.execute("UPDATE clientes SET nome =?, sobrenome=?, email=?, cpf=? WHERE id = ?",(nome, sobrenome,email, cpf, id))
     trans.persist()
     trans.disconnect()
 
